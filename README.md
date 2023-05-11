@@ -14,6 +14,16 @@ Antonio Gomes Sales junior</b></sub></a><br /><a href="https://github.com/Antoni
     </td>
     
   </tr>
+  
+  <tr>
+    <td align="center"><a href="https://github.com/DominyMartins"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/122042813?v=4" width="100px;" alt=""/><br /><sub><b>
+Dominy Martins</b></sub></a><br /><a href="https://github.com/DominyMartins" title="Dominy Martins">👨‍🚀</a></td>
+    <td> 
+      <div align="center">Link do projeto </div> 
+      <div>https://turma419.shinyapps.io/dominy/</div> 
+    </td>
+    
+  </tr>
 </table>
 <br>
 
