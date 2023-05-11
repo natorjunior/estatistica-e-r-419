@@ -37,7 +37,7 @@ Egidio Holanda</b></sub></a><br /><a href="https://github.com/egidioholanda" tit
 </table>
 <br>
 
-##  🎯 Sobre o sistema de alerta
+##  🎯 Sobre o sistema 
 ...
 
 ## 🎯 Principais funções
