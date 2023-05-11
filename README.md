@@ -24,6 +24,16 @@ Dominy Martins</b></sub></a><br /><a href="https://github.com/DominyMartins" tit
     </td>
     
   </tr>
+  
+  <tr>
+    <td align="center"><a href="https://github.com/egidioholanda"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/54413980?v=4" width="100px;" alt=""/><br /><sub><b>
+Egidio Holanda</b></sub></a><br /><a href="https://github.com/egidioholanda" title="Egidio Holanda">👨‍🚀</a></td>
+    <td> 
+      <div align="center">Link do projeto </div> 
+      <div>https://turma419.shinyapps.io/egidio/</div> 
+    </td>
+    
+  </tr>
 </table>
 <br>
 
