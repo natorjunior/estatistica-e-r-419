@@ -8,6 +8,10 @@
   <tr>
     <td align="center"><a href="https://github.com/Antoniojrsales"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/128896865?v=4" width="100px;" alt=""/><br /><sub><b>
 Antonio Gomes Sales junior</b></sub></a><br /><a href="https://github.com/Antoniojrsales" title="Antonio Gomes Sales">👨‍🚀</a></td>
+    <td> 
+      <div align="center">Link do projeto </div> 
+      <div>https://turma419.shinyapps.io/antonio/</div> 
+    </td>
     
   </tr>
 </table>
