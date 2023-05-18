@@ -1,0 +1,62 @@
+```{r}
+library(shiny)
+data(iris)
+
+calcula_da_distancia <- function(a, b) {
+  # FUNÇAO QUE CALCULA A DISTANCIA EUCLIDIANA
+  sqrt(sum((a - b)^2))
+}
+
+classificar_variedade_iris <- function(variedade_para_prever) {
+  menor_distancia <- 200
+  classe_prevista <- "nenhuma"
+  
+  for (especie in levels(iris$Species)) {
+    df_variedade <- subset(iris, Species == especie)
+    media_variedade <- colMeans(df_variedade[, 1:4])
+    distancia <- calcula_da_distancia(media_variedade, variedade_para_prever)
+    
+    if (distancia < menor_distancia) {
+      menor_distancia <- distancia
+      classe_prevista <- especie
+    }
+  }
+  
+  return(classe_prevista)
+}
+
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+      textInput("sepal_length", "Digite uma sepal length", value = " "),
+      textInput("sepal_width", "Digite uma sepal width", value = " "),
+      textInput("petal_length", "Digite uma petal length", value = " "),
+      textInput("petal_width", "Digite uma petal width", value = " "),
+      textOutput("minha_saida")
+    ),
+    mainPanel(
+      titlePanel("Base de dados"),
+      fluidRow(
+        column(12,
+               tableOutput("table")
+        )
+      )
+    )
+  )
+)
+
+set.seed(123)
+server <- function(input, output) {
+  output$minha_saida <- renderText({
+    valores <- sapply(c("sepal_length", "sepal_width", "petal_length", "petal_width"), function(x) as.numeric(input[[x]]))
+    classe_prevista <- classificar_variedade_iris(valores)
+    paste("Classificação:", classe_prevista)
+  })
+  
+  output$table <- renderTable({
+    iris[sample(nrow(iris), 10, replace = FALSE), ]
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
