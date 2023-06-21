@@ -1,0 +1,112 @@
+library(shiny)
+
+calc_dist_euclid <- function(a,b){
+   result <- sqrt(
+        (a[1]-b[1])**2 + 
+        (a[2]-b[2])**2 + 
+        (a[3]-b[3])**2 + 
+        (a[4]-b[4])**2
+    ) 
+   return(result)
+}
+
+classificador <- function(amostra_desconhecida){
+    Virginica <- c(1, 2, 1.5, 3)
+    Setosa <- c(5, 3.2, 1.6, 6)
+    Versicolor <- c(2, 1.2, 1.5, 4)
+    result_Virginica <- calc_dist_euclid(amostra_desconhecida,Virginica)
+    result_Setosa <- calc_dist_euclid(amostra_desconhecida,Setosa)
+    result_Versicolor <- calc_dist_euclid(amostra_desconhecida,Versicolor)
+    classe <- ''
+    if(result_Virginica<result_Setosa){
+        if(result_Virginica<result_Versicolor){
+            classe <- 'Virginica'
+        }else {
+           classe <- 'Versicolor'
+        }
+    }else {
+       if(result_Setosa<result_Versicolor){
+            classe <- 'Setosa'
+        }else {
+           classe <- 'Versicolor'
+        }
+    }
+    return(classe)
+}
+ui <- fluidPage(
+  titlePanel("Medidas das Variedades Iris"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("sepal_length", "Comprimento da Sépala:", value = NULL, min = 0),
+      numericInput("sepal_width", "Largura da Sépala:", value = NULL, min = 0),
+      numericInput("petal_length", "Comprimento da Pétala:", value = NULL, min = 0),
+      numericInput("petal_width", "Largura da Pétala:", value = NULL, min = 0),
+      actionButton("check_button", "Verificar")
+    ),
+    mainPanel(
+      h4("Resultado:"),
+      textOutput("result"),
+      tableOutput("reference_table")
+    )
+  )
+)
+
+server <- function(input, output) {
+  observeEvent(input$check_button, {
+    sepal_length <- input$sepal_length
+    sepal_width <- input$sepal_width
+    petal_length <- input$petal_length
+    petal_width <- input$petal_width
+    
+    result <- identify_iris_variante(sepal_length, sepal_width, petal_length, petal_width)
+    
+    output$result <- renderText({
+      if (result == "Virginica") {
+        "As medidas correspondem à variedade Iris é da Virginica."
+      } else if (result == "Setosa") {
+        "As medidas correspondem à variedade Iris é da Setosa."
+      } else if (result == "Versicolor") {
+        "As medidas correspondem à variedade Iris é da Versicolor."
+      } else {
+        "Não é possível identificar a variedade com as medidas fornecidas."
+      }
+    })
+    
+    output$reference_table <- renderTable({
+      iris_reference_table()
+    })
+  })
+}
+
+identify_iris_variante <- function(sepal_length, sepal_width, petal_length, petal_width) {
+  reference_table <- iris_reference_table()
+  distances <- apply(reference_table[, -1], 1, function(row) {
+    calc_dist_euclid(c(sepal_length, sepal_width, petal_length, petal_width), row)
+  })
+  
+  min_index <- which.min(distances)
+  variante <- reference_table$Variante[min_index]
+  
+  return(variante)
+}
+
+calc_dist_euclid <- function(a, b) {
+  result <- sqrt(
+    sum((a - b)^2)
+  ) 
+  return(result)
+}
+
+iris_reference_table <- function() {
+  reference_table <- data.frame(
+    Variante = c("Virginica", "Setosa", "Versicolor"),
+    Comprimento_da_Sépala = c(1, 5, 2),
+    Largura_da_Sépala = c(2, 3.2, 1.2),
+    Comprimento_da_Pétala = c(1.5, 1.6, 1.5),
+    Largura_da_Pétala = c(3, 6, 4)
+  )
+  
+  return(reference_table)
+}
+
+shinyApp(ui = ui, server = server)
